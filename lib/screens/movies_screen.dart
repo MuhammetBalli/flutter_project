@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:movies_app/providers/movie_provider.dart';
-import 'package:movies_app/models/movie_model.dart';
 
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/movie_provider.dart'; // Import your MovieProvider
-import '../widgets/movie_list.dart'; // Import your MovieListWidget
 
 class MoviesScreen extends StatefulWidget {
   const MoviesScreen({Key? key}) : super(key: key);
