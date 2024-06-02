@@ -1,99 +1,91 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/movie_model.dart';
+import '../models/tv_show_model.dart';
 
-class MovieService {
+class TvShowService {
   final String apiKey = '8292dd1bd676f4b1a4771e1299d3df5a';
 
-  Future<List<Movie>> fetchNowPlayingMovies(int page) async {
-    final String baseUrl = 'https://api.themoviedb.org/3/movie/now_playing';
+  Future<List<TvShow>> fetchAiringTodayTvShows(int page) async {
+    final String baseUrl = 'https://api.themoviedb.org/3/tv/airing_today';
     final String url = '$baseUrl?api_key=$apiKey&page=$page';
 
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        final List<Movie> movies = [];
+        final List<TvShow> tvShows = [];
         for (var item in jsonData['results']) {
-          movies.add(Movie.fromJson(item));
+          tvShows.add(TvShow.fromJson(item));
         }
-        return movies;
+        return tvShows;
       } else {
-        throw Exception('Failed to load now playing movies');
+        throw Exception('Failed to load airing today TV shows');
       }
     } catch (e) {
       throw Exception('Error: $e');
     }
   }
 
-  Future<List<Movie>> fetchPopularMovies(int page) async {
-    final String baseUrl = 'https://api.themoviedb.org/3/movie/popular';
-    final String url = '$baseUrl?api_key=$apiKey&page=$page';
-
-    try {
-      final response = await http.get(Uri.parse(url),);
-      print('___________________');
-      print(response.statusCode);
-      print(response.body);
-      if (response.statusCode == 200) {
-
-        final jsonData = json.decode(response.body);
-        print(jsonData); // API yanıtını kontrol etmek için
-        final List<Movie> movies = [];
-        for (var item in jsonData['results']) {
-          movies.add(Movie.fromJson(item));
-        }
-        return movies;
-      } else {
-        throw Exception('Failed to load popular movies');
-      }
-    } catch (e) {
-      throw Exception('Error: $e');
-    }
-  }
-
-  Future<List<Movie>> fetchTopRatedMovies(int page) async {
-    final String baseUrl = 'https://api.themoviedb.org/3/movie/top_rated';
+  Future<List<TvShow>> fetchOnTheAirTvShows(int page) async {
+    final String baseUrl = 'https://api.themoviedb.org/3/tv/on_the_air';
     final String url = '$baseUrl?api_key=$apiKey&page=$page';
 
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        final List<Movie> movies = [];
+        final List<TvShow> tvShows = [];
         for (var item in jsonData['results']) {
-          movies.add(Movie.fromJson(item));
+          tvShows.add(TvShow.fromJson(item));
         }
-        return movies;
+        return tvShows;
       } else {
-        throw Exception('Failed to load top rated movies');
+        throw Exception('Failed to load on the air TV shows');
       }
     } catch (e) {
       throw Exception('Error: $e');
     }
   }
 
-  Future<List<Movie>> fetchUpcomingMovies(int page) async {
-    final String baseUrl = 'https://api.themoviedb.org/3/movie/upcoming';
+  Future<List<TvShow>> fetchPopularTvShows(int page) async {
+    final String baseUrl = 'https://api.themoviedb.org/3/tv/popular';
     final String url = '$baseUrl?api_key=$apiKey&page=$page';
 
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        final List<Movie> movies = [];
+        final List<TvShow> tvShows = [];
         for (var item in jsonData['results']) {
-          movies.add(Movie.fromJson(item));
+          tvShows.add(TvShow.fromJson(item));
         }
-        return movies;
+        return tvShows;
       } else {
-        throw Exception('Failed to upcoming movies');
+        throw Exception('Failed to load on the air TV shows');
       }
     } catch (e) {
       throw Exception('Error: $e');
     }
   }
 
+  Future<List<TvShow>> fetchTopRatedTvShows(int page) async {
+    final String baseUrl = 'https://api.themoviedb.org/3/tv/top_rated';
+    final String url = '$baseUrl?api_key=$apiKey&page=$page';
 
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final List<TvShow> tvShows = [];
+        for (var item in jsonData['results']) {
+          tvShows.add(TvShow.fromJson(item));
+        }
+        return tvShows;
+      } else {
+        throw Exception('Failed to load on the air TV shows');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
 }
-

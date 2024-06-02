@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '../screens/movies_screen.dart';
+import 'package:movies_app/screens/favorite_movies_screen.dart';
+import 'package:movies_app/screens/favorites_screen.dart';
+import '../movie_screens/now_playing_movies.dart';
 import '../screens/tv_shows_screen.dart';
+import 'movies.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _screens = [MoviesScreen(), TvShowsScreen()];
+  static const List<Widget> _screens = [Movies(), TvShowsScreen(),FavoritesPage()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -23,9 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -36,6 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.tv),
             label: 'TV Shows',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
           ),
         ],
         currentIndex: _selectedIndex,

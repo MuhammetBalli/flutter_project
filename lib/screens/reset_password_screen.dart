@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth.provider.dart';
+import '../providers/auth_provider.dart';
  // Replace with the correct import path
 
 class ResetPasswordPage extends StatelessWidget {

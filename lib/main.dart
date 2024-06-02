@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:movies_app/providers/auth.provider.dart'; // Update the path as needed
+import 'package:movies_app/providers/auth_provider.dart'; // Update the path as needed
 import 'package:movies_app/providers/movie_provider.dart';
+import 'package:movies_app/providers/tv_show_provider.dart';
 import 'package:movies_app/screens/home_screen.dart';
 import 'package:movies_app/screens/reset_password_screen.dart';
 import 'package:movies_app/screens/sign_in_screen.dart';
@@ -22,11 +23,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => MyAuthProvider(FirebaseAuth.instance, FirebaseFirestore.instance),
+          create: (context) =>
+              MyAuthProvider(FirebaseAuth.instance, FirebaseFirestore.instance),
         ),
         ChangeNotifierProvider(
           create: (context) => MovieProvider(), // Add the MovieProvider
         ),
+        ChangeNotifierProvider(create: (context) => TvShowProvider())
       ],
       child: MaterialApp(
         title: 'Flutter Firebase App',
@@ -35,8 +38,9 @@ class MyApp extends StatelessWidget {
           '/': (context) => AuthWrapper(),
           '/signup': (context) => SignUpScreen(),
           '/signin': (context) => SignInScreen(),
-          '/home': (context) =>  HomeScreen(),
-          '/reset_password': (context) => ResetPasswordPage(),// Replace with your home screen
+          '/home': (context) => HomeScreen(),
+          '/reset_password': (context) =>
+              ResetPasswordPage(), // Replace with your home screen
         },
       ),
     );
@@ -54,7 +58,7 @@ class AuthWrapper extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         } else if (snapshot.hasData) {
-          return  HomeScreen();  // Replace with your home screen
+          return HomeScreen(); // Replace with your home screen
         } else {
           return SignInScreen();
         }
@@ -62,5 +66,3 @@ class AuthWrapper extends StatelessWidget {
     );
   }
 }
-
-
