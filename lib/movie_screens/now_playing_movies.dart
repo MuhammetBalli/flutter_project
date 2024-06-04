@@ -25,7 +25,7 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
   void _onScroll() {
     final movieProvider = Provider.of<MovieProvider>(context, listen: false);
     if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200 &&
+            _scrollController.position.maxScrollExtent - 200 &&
         !movieProvider.isLoading) {
       movieProvider.fetchNowPlayingMovies();
     }
@@ -62,7 +62,7 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
                 ),
                 Container(
                   height: 330,
-                  color: Colors.red,
+                  //color: Colors.red,
                   child: ListView.builder(
                     controller: _scrollController,
                     scrollDirection: Axis.horizontal,
@@ -93,9 +93,11 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
                                   Container(
                                     width: 150,
                                     height: 225,
-                                    color: Colors.grey,
-                                    child: const Center(
-                                      child: CircularProgressIndicator(),
+                                    color: Colors.grey[300],
+                                    child:  Center(
+                                      child: CircularProgressIndicator(
+                                        color: Colors.blue[200],
+                                      ),
                                     ),
                                   ),
                                   Image.network(
@@ -103,14 +105,18 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
                                     fit: BoxFit.cover,
                                     width: 150,
                                     height: 225,
-                                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
                                       if (loadingProgress == null) return child;
                                       return Container(
                                         width: 150,
                                         height: 225,
-                                        color: Colors.grey,
-                                        child: const Center(
-                                          child: CircularProgressIndicator(),
+                                        color: Colors.grey[300],
+                                        child:Center(
+                                          child: CircularProgressIndicator(
+                                            color: Colors.blue[200],
+                                          ),
                                         ),
                                       );
                                     },
@@ -127,7 +133,9 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              Text(movie.rating.toStringAsFixed(1)),
+                              movie.rating == 0
+                                  ? Text("")
+                                  : Text(movie.rating.toStringAsFixed(1)),
                             ],
                           ),
                         ),
@@ -143,5 +151,3 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
     );
   }
 }
-
-

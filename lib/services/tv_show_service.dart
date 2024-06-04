@@ -88,4 +88,26 @@ class TvShowService {
       throw Exception('Error: $e');
     }
   }
+
+  Future<List<Map<String, String>>> fetchTvShowVideos(int tvShowId) async {
+    final response = await http.get(
+      Uri.parse('https://api.themoviedb.org/3/tv/$tvShowId/videos?api_key=$apiKey'),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      List<Map<String, String>> videos = [];
+      for (var result in data['results']) {
+        if (result['site'] == 'YouTube') {
+          videos.add({
+            'name': result['name'],
+            'key': result['key'],
+          });
+        }
+      }
+      return videos;
+    } else {
+      throw Exception('Failed to load videos');
+    }
+  }
 }
